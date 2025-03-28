@@ -7,21 +7,52 @@ import ChatInput from "@/components/ChatInput.vue";
 
 const route = useRoute();
 const messages = ref([]);
+const formattedMessages = ref([]); // Stocke les messages formatés
 const chatId = route.params.id; // Récupération de l'ID depuis l'URL
 const isLoading = ref(false); // Indicateur de chargement
 
-// Fonction pour récupérer les messages d'une discussion spécifique
 const fetchMessages = async () => {
   try {
+    isLoading.value = true; // Active le chargement
     const res = await fetch(`http://localhost:5000/chats/${chatId}`);
     const data = await res.json();
     messages.value = data.messages;
+    formatMessages(); // Transformer les messages après chargement
   } catch (error) {
     console.error("Erreur lors du chargement des messages :", error);
+  } finally {
+    isLoading.value = false; // Désactive le chargement
   }
 };
 
-// Ajouter un nouveau message à la discussion
+// Fonction pour transformer les messages en { user: "", agent: "" }
+const formatMessages = () => {
+  formattedMessages.value = [];
+  let currentMessage = { user: "", assistant: "" };
+
+  messages.value.forEach(msg => {
+    if (msg.isUser) {
+      if (currentMessage.user) {
+        formattedMessages.value.push({ ...currentMessage });
+        currentMessage = { user: msg.text, assistant: "" };
+      } else {
+        currentMessage.user = msg.text;
+      }
+    } else {
+      if (currentMessage.assistant) {
+        formattedMessages.value.push({ ...currentMessage });
+        currentMessage = { user: "", assistant: msg.text };
+      } else {
+        currentMessage.assistant = msg.text;
+      }
+    }
+  });
+  // Ajouter le dernier message si non vide
+  if (currentMessage.user || currentMessage.agent) {
+    formattedMessages.value.push(currentMessage);
+  }
+};
+
 const addMessage = async (text) => {
   const newMessage = { text, isUser: true };
   messages.value.push(newMessage); // Ajout du message localement
@@ -46,24 +77,33 @@ const addMessage = async (text) => {
     const response = await fetch("http://localhost:8000/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: newMessage.text }),
+      body: JSON.stringify({ prompt: newMessage.text, history: formattedMessages.value}),
     });
-    const data = await response.json();
 
-    // Retirer le spinner et ajouter la réponse
-    messages.value.pop();
-    messages.value.push({ text: data[0].response, isUser: false });
-    
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let completeResponse = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+      completeResponse += chunk;
+      messages.value.pop();
+      messages.value.push({ text: completeResponse, isUser: false });
+    }
+
     await fetch(`http://localhost:5000/chats/${chatId}/message`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: data[0].response, isUser: false }),
+      body: JSON.stringify({ text: completeResponse, isUser: false }),
     });
 
   } catch (error) {
     console.error("Erreur lors de l'envoi du message au chat:", error);
   } finally {
     isLoading.value = false;
+    formatMessages();
   }
 };
 
