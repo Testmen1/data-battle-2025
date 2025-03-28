@@ -13,7 +13,7 @@ Naviguez dans `/frontend` et executez les commandes suivantes :
 npm i
 npm run dev
 ```
-Dans un autre terminal :
+et dans un autre terminal :
 
 ```bash
 node server/server.js
@@ -40,7 +40,7 @@ Installez l'API ollama :
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-Pour ce projet, vous aurez besoin du modèle mistral:latest (7b) : 
+Pour ce projet, vous aurez besoin du modèle mistral:7b (4,8Go) : 
 ```bash
 ollama pull mistral
 ```
@@ -58,10 +58,9 @@ ollama run onizukai-mcq
 ```
 
 
-
 #### Crédits
-Léo-Paul Bigot
-Aventin Farret
-Matis Toniutti
-Dorian Cornec
+Léo-Paul Bigot,
+Aventin Farret,
+Matis Toniutti,
+Dorian Cornec,
 Sophie Longy

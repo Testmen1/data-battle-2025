@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import home from "~/components/home.vue";
 
 const router = useRouter();
-const items = ref(['Math', 'Histoire', 'Science', 'Informatique'])
+const items = ref(['Filing requirements and formalities', 'Priority claims and right of priority', 'Divisional applications', 'Fees, payment methods, and time limits'])
 
 
 const selectedTheme = ref("");

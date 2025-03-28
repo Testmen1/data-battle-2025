@@ -1,169 +1,103 @@
 {
-   "questions":[
-      {
-         "question":"An international application is published, together with the search report drawn up by the CNIPA, 18 months +1 day after the filing date (no priority claimed). The application has no more than 35 pages and 15 claims. Which statement reflects all actions the CN applicant needs to take for entry into the EP phase 25 months after the filing date? A request for early processing has been filed.",
-         "options":[
-            "Complete and file Form 1200 and pay the filing fee and the search fee",
-            "Complete and file Form 1200 and pay the filing fee, the search fee and the renewal fee for the third year",
-            "Complete and file Form 1200, pay the filing fee and the search fee and appoint a representative",
-            "None of the above statements"
-         ],
-         "correct_answer":"None of the above statements",
-         "context_answer":"Rule 159(1) EPC: The examination fee and designation fee must also be paid (six months after publication of search report; payment cannot be postponed to 31 months if there is a wish to enter into the European phase at 25 months)."
-      },
-      {
-         "question":"A European patent application was filed on 6 February 2023. The search, filing and designation fees were paid within a month of the date of filing. What is the latest point in time for withdrawing the application, if the applicant wishes to obtain a refund of the designation fee?",
-         "options":[
-            "Six months after the date of mention of the publication of the European search report",
-            "Date of mention of the publication of the European search report",
-            "The designation fee was validly paid and can no longer be refunded",
-            "Date of the start of substantive examination"
-         ],
-         "correct_answer":"Date of mention of the publication of the European search report",
-         "context_answer":"Guidelines for Examination in the EPO, A-X, 5.2.2: The designation fee falls due upon publication of the mention of the European search report."
-      },
-      {
-         "question":"On 10 October 2024, an applicant files a request for entry into the European phase, together with a debit order, according to which the filing fee, the designation fee, the examination fee and the renewal fee for the third year are to be debited from the applicant's deposit account. It is specified that the debit order is to be executed on 18 October 2024. On the evening of 10 October 2024, the applicant notices that the renewal fee is not yet due and should not be debited from the deposit account. What is the latest point in time for revoking the order to debit the renewal fee in Central Fee Payment (CFP)?",
-         "options":[
-            "10 October 2024",
-            "17 October 2024",
-            "18 October 2024",
-            "A debit order cannot be revoked in part"
-         ],
-         "correct_answer":"17 October 2024",
-         "context_answer":"OJ EPO 2024, Supplementary Publication 2, Arrangements for deposit accounts (ADA), 13.2: A debit order with a deferred payment date may be revoked in whole or in part in Central Fee Payment until one day before the date specified as the execution date at the latest."
-      },
-      {
-         "question":"The applicant received a communication pursuant to Article 90(3) EPC and Rule 60 EPC, requesting them to file a designation of inventor but missed the time limit for filing a response. After expiry of the time limit, the Receiving Section issued a decision to refuse the European patent application, dated 10 October 2024. What can the applicant do to remedy the situation?",
-         "options":[
-            "File a notice of appeal against the decision within four months of notification of the decision",
-            "File a request for further processing within two months of notification of the decision",
-            "File, within two months of notification of the decision, a request for re-establishment of rights in respect of the time limit for filing the designation of inventor",
-            "A, B and C are correct"
-         ],
-         "correct_answer":"A, B and C are correct",
-         "context_answer":"Articles 106 and 108 EPC; Article 121(1) EPC; Guidelines for Examination in the EPO, E-VIII, 2: A notice of appeal could also be filed within two months of notification of the decision; re-establishment of rights is excluded because further processing is available."
-      },
-      {
-         "question":"Which of the following statements about filing third-party observations is correct?",
-         "options":[
-            "The person that filed third-party observations will be a party to the proceedings before the EPO, and the applicant is obliged to respond to third-party observations",
-            "Third-party observations must be filed in writing and may not be filed anonymously",
-            "Third-party observations are considered by the examining division only if they include a statement of the grounds on which they are based, and an official fee is paid",
-            "Third-party observations can be filed after the publication of a European patent application and must be filed in an official language of the EPO"
-         ],
-         "correct_answer":"Third-party observations can be filed after the publication of a European patent application and must be filed in an official language of the EPO",
-         "context_answer":"Article 115 EPC, Rule 114 EPC; Guidelines for Examination in the EPO, E-VI. 3: Third-party observations may be filed anonymously and there is no official fee when filing third-party observations."
-      },
-      {
-         "question":"You filed an international patent application on 6 June 2024, claiming the priority of a European patent application filed on 7 July 2023. You received a communication dated 25 September 2024 from the EPO acting as International Searching Authority (ISA), stating that the requirement of unity of invention has not been complied with. The ISA identifies three inventions. You are invited to pay two additional search fees. Which of the following statements is correct?",
-         "options":[
-            "You must pay two additional search fees by 25 October 2024",
-            "You do not need to file a response to the provisional opinion accompanying the partial search results",
-            "If you pay two additional search fees under protest, you must pay two protest fees within the time limit",
-            "If you do not pay any additional search fees within the time limit, the international patent application will be deemed to be withdrawn"
-         ],
-         "correct_answer":"You do not need to file a response to the provisional opinion accompanying the partial search results",
-         "context_answer":"Rule 40 PCT: A protest fee is due only once, and the application will not be deemed withdrawn if no additional search fees are paid."
-      },
-      {
-         "question":"An international patent application filed with the EPO as receiving Office on 10 September 2024, claims the priority of a Luxembourg patent application filed on 11 October 2023. No certified copy of the Luxembourg patent application was filed at the time of filing of the international patent application. Which of the following actions can be taken to file a certified copy of the Luxembourg patent application for this international patent application?",
-         "options":[
-            "Request the Luxembourg Intellectual Property Office to prepare and send a certified copy of the Luxembourg patent application to the EPO",
-            "Submit a valid DAS code (Digital Access Service) to the International Bureau to enable it to obtain a certified copy of the Luxembourg patent application",
-            "File an electronic certified copy of the Luxembourg patent application with the EPO",
-            "File a certified copy of the Luxembourg patent application with the International Bureau"
-         ],
-         "correct_answer":"File a certified copy of the Luxembourg patent application with the International Bureau",
-         "context_answer":"PCT Applicant's Guide 5.070.; Guidelines for Examination in the EPO A-III, 6.7; PCT Applicant's Guide LU-Luxembourg: The LPTO does not use the DAS access code or issue electronic priority documents."
-      },
-      {
-         "question":"Firm A owns a European patent, EP. Firm B filed an opposition against EP, requesting its revocation. Firm B argued that the subject-matter of the granted claims was not new in view of document D1. During the opposition proceedings, firm C filed observations under Art. 115 EPC, arguing that the subject-matter of the granted claims was not new in view of document D2. Firm A requested maintenance of the patent as granted, or maintenance in amended form, according to auxiliary request 1. Which of the following statements is correct?",
-         "options":[
-            "At the end of the opposition proceedings, the opposition division decided to revoke the patent. Firm B is entitled to file an appeal against the opposition division's decision.",
-            "At the end of the opposition proceedings, the opposition division decided to maintain the patent in amended form according to firm A's auxiliary request 1 . Firm A and firm B are entitled to file an appeal against the opposition division's decision.",
-            "At the end of the opposition proceedings, the opposition division decided to maintain the patent as granted. Firm C is entitled to file an appeal against the opposition division's decision.",
-            "During the opposition proceedings, firm B withdrew its opposition. At the end of the opposition proceedings, the opposition division decided to maintain the patent as granted. Firm B is entitled to file an appeal against the opposition division's decision."
-         ],
-         "correct_answer":"At the end of the opposition proceedings, the opposition division decided to maintain the patent in amended form according to firm A's auxiliary request 1 . Firm A and firm B are entitled to file an appeal against the opposition division's decision.",
-         "context_answer":"Article 107 EPC: Both parties A and B are adversely affected and are entitled to file an appeal."
-      },
-      {
-         "question":"European patent application EP-X was filed on 1 October 2020, claiming the priority of a Belgian application filed on 16 October 2019. The mention of the grant of European patent EP-X was published on 2 October 2024. The proprietor filed a request for unitary effect and was informed by communication dated 10 October 2024, that unitary effect had been registered for EP-X-C0 on the same date. Which of the following statements is correct?",
-         "options":[
-            "A renewal fee still has to be paid by 31 October 2024 in respect of the 5th year for EP-X",
-            "A renewal fee is due on 31 October 2024 in respect of the 5th year for EP-X-C0",
-            "A renewal fee is due on 31 October 2024 in respect of the 6th year for EP-X-C0",
-            "No renewal fee has to be paid on 31 October 2024"
-         ],
-         "correct_answer":"No renewal fee has to be paid on 31 October 2024",
-         "context_answer":"Guidelines for Examination in the EPO, A-X, 5.2.4: The renewal fee that would have been due on 31 October had to be paid for the decision to grant to be issued."
-      },
-      {
-         "question":"A communication under Article 94(3) EPC, setting a four-month time limit for reply is dated 12 September 2024. The applicant receives the letter on 21 September 2024, as evidenced by the postal receipt signed by him. What is the last day for replying to the communication?",
-         "options":[
-            "13 January 2025",
-            "12 January 2025",
-            "22 January 2025",
-            "14 January 2025"
-         ],
-         "correct_answer":"14 January 2025",
-         "context_answer":"Rule 126(2) EPC: The document was delivered to the addressee nine days after the date it bears, so the period expires later by the number of days by which the seven days were exceeded, i.e. 12 January 2025 + two days."
-      },
-      {
-         "question":"Which functionalities or services can be accessed directly from MyEPO Portfolio?",
-         "options":[
-            "A shared area with examiners, European Patent Register, filing via the EPO's online filing software eOLF",
-            "Mailbox, a shared area with examiners, replying to a communication under Article 94(3) EPC",
-            "Mailbox, patent search via publication server, a shared area with examiners",
-            "Filing via the EPO's Online Filing 2.0, patent search via publication server, Mailbox"
-         ],
-         "correct_answer":"Mailbox, a shared area with examiners, replying to a communication under Article 94(3) EPC",
-         "context_answer":"https://www.epo.org/en/applying/myepo-services/interact: It is neither possible to access the European Patent Register nor to file using the EPO's legacy Online Filing software (eOLF) via MyEPO Portfolio."
-      },
-      {
-         "question":"In which of the following situations does the EPO recommend using the EPO Contingency Upload Service?",
-         "options":[
-            "When you submit documents after business hours",
-            "When the EPO filing systems are functioning correctly, but you encounter a technical issue at your end",
-            "When there is a system outage at the EPO that prevents document submission via the standard filing systems",
-            "When the EPO is closed due to an official holiday"
-         ],
-         "correct_answer":"When there is a system outage at the EPO that prevents document submission via the standard filing systems",
-         "context_answer":"OJ EPO 2023, A50, point 20; Contingency Upload Service | epo.org: Recommended when there is a system outage at the EPO."
-      },
-      {
-         "question":"Applicant Korhonen is a Finnish national resident in Finland. He filed a European patent application in Finnish and provided an English translation in time. In response to the extended European search report (EESR), Korhonen wishes to file amended claims together with a request for examination. Which of the following statements is correct?",
-         "options":[
-            "Korhonen must file the amended claims in Finnish and must then provide a translation into English, in time",
-            "Korhonen is allowed to file the amended claims in Finnish if he then provides a translation into any official language of the EPO, in time",
-            "Korhonen is allowed to file the amended claims in Finnish if he then provides a translation into English, in time",
-            "Korhonen is not allowed to file the amended claims in Finnish"
-         ],
-         "correct_answer":"Korhonen is allowed to file the amended claims in Finnish if he then provides a translation into English, in time",
-         "context_answer":"Guidelines for Examination in the EPO, A-VII, 3.2; Rule 3(2) EPC: The Finnish applicant is entitled to file the amended claims in Finnish, and a translation must be filed in the language of proceedings, English in this case."
-      },
-      {
-         "question":"Applicants may request processing of their international application under PCT Direct by filing a letter (\"PCT Direct letter\") containing informal comments, aimed at overcoming objections raised in the search opinion established by the EPO for the priority application. Which of the following statements is NOT correct?",
-         "options":[
-            "PCT Direct is available if the priority application is a Belgian application filed in French, which has been searched and the international application is filed in French, using ePCT-Filing",
-            "PCT Direct is available if the priority application is an EP application filed in French, which has been searched and the international application is filed in English, using Online Filing 2.0",
-            "PCT Direct is available if the priority application is an international application filed with the EPO in English, which has been searched by the EPO and the subsequent international application is filed in English, using Online Filing 2.0",
-            "PCT Direct is available on condition that amended claims are filed with the PCT Direct letter, in a single PDF document"
-         ],
-         "correct_answer":"PCT Direct is available on condition that amended claims are filed with the PCT Direct letter, in a single PDF document",
-         "context_answer":"PCT-EPO Guidelines, B-IV, 1.2: Comments are required but not amendments."
-      },
-      {
-         "question":"Mr Linguist filed a European patent application in Dutch and used English as language of the proceedings. When requesting unitary effect on 10 October 2024, Mr Linguist must provide a translation of the specification. Mr Linguist would like to obtain immediate registration of the unitary effect. Which of the following statements is correct?",
-         "options":[
-            "Mr Linguist must provide a translation of the specification into Dutch",
-            "Mr Linguist must provide a translation of the specification into an official language of any of the 18 states to which the unitary effect extends",
-            "Mr Linguist must provide a translation of the specification into an official language of any of the 24 states that have signed the UPCA",
-            "Mr Linguist may provide a translation of the specification into Spanish"
-         ],
-         "correct_answer":"Mr Linguist may provide a translation of the specification into Spanish",
-         "context_answer":"Article 6(1) Regulation (EU) No 1260/2012; Rule 6(2)(d) UPR; Unitary Patent Guide, para. 65: The translation may be in any of the 24 official languages of the EU, except English."
-      }
+   "questions": [
+       {
+           "question": "What is recommended for grouping together chemical or mathematical formulae?",
+           "options": {
+               "A": "Not at all, they should always be separate.",
+               "B": "They can be grouped on one sheet with the description and numbered.",
+               "C": "They must never appear in the text of an application or patent.",
+               "D": "They should only be written by hand or drawn without using any aids."
+           },
+           "correct_answer": "B",
+           "context_answer": "In the context, it is recommended that chemical or mathematical formulae can be grouped together on one or more sheets annexed to the description and paginated with it."
+       },
+       {
+           "question": "Which of the following is NOT a reason for using appropriate aids when writing or drawing chemical or mathematical formulae?",
+           "options": {
+               "A": "To ensure symbols are completely unambiguous.",
+               "B": "To make the formulae more legible.",
+               "C": "To make the formulae identical in form in various documents.",
+               "D": "To increase the size of the symbols for practical reasons."
+           },
+           "correct_answer": "C",
+           "context_answer": "In the context, the use of appropriate aids is not mentioned as a means to make the formulae identical in form across different documents."
+       },
+       {
+           "question": "What is the minimum height for symbols in chemical or mathematical formulae appearing in the text of an application or patent?",
+           "options": {
+               "A": "0.21 cm",
+               "B": "0.32 cm",
+               "C": "0.43 cm",
+               "D": "It depends on the document."
+           },
+           "correct_answer": "A",
+           "context_answer": "In the context, it is stated that symbols in chemical or mathematical formulae appearing in the text of an application or patent must have symbols, the capital letters of which are at least 0.21 cm high."
+       },
+       {
+           "question": "When should each formula be designated by a reference sign?",
+           "options": {
+               "A": "Only when necessary in the description.",
+               "B": "Always, regardless of necessity.",
+               "C": "Never, they don't need to be referenced.",
+               "D": "Only when appearing on sheets of drawings."
+           },
+           "correct_answer": "A",
+           "context_answer": "In the context, it is recommended that each formula be designated by a reference sign and the description should contain references to these formulae whenever necessary."
+       },
+       {
+           "question": "What must be done with chemical or mathematical formulae appearing in the text of the application or patent if they have symbols smaller than 0.21 cm?",
+           "options": {
+               "A": "Enlarge them to meet the minimum height requirement.",
+               "B": "Leave them as they are, it's acceptable.",
+               "C": "Convert them into drawings or diagrams.",
+               "D": "Explain their significance in the description."
+           },
+           "correct_answer": "A",
+           "context_answer": "In the context, no mention is made of accepting symbols smaller than 0.21 cm in chemical or mathematical formulae appearing in the text of an application or patent."
+       },
+       {
+           "question": "Which of the following is a recommended practice when using mathematical symbols in a formula?",
+           "options": {
+               "A": "Using symbols not in general use.",
+               "B": "Drawing the formula in a way that it is ambiguous.",
+               "C": "Explaining all mathematical symbols used in a formula in the description.",
+               "D": "Changing the form of figures, letters and signs in different formulae."
+           },
+           "correct_answer": "C",
+           "context_answer": "In the context, it is recommended that the mathematical symbols used in a formula appearing in a description, in an annex or on sheets of drawings must be explained in the description unless their significance is clear from the context."
+       },
+       {
+           "question": "What is NOT a valid reason for writing or drawing chemical or mathematical formulae by hand or using stencils or transfers?",
+           "options": {
+               "A": "To ensure symbols are legible.",
+               "B": "To make the formulae identical in form irrespective of the document.",
+               "C": "To reduce practical difficulties in grouping formulae together.",
+               "D": "To use symbols in general use."
+           },
+           "correct_answer": "B",
+           "context_answer": "In the context, using stencils or transfers is not mentioned as a means to make the formulae identical in form across different documents."
+       },
+       {
+           "question": "What is the minimum height for symbols in chemical or mathematical formulae appearing on sheets of drawings?",
+           "options": {
+               "A": "0.21 cm",
+               "B": "0.32 cm",
+               "C": "It depends on their location.",
+               "D": "They must be at least as large as those in the text."
+           },
+           "correct_answer": "B",
+           "context_answer": "In the context, it is stated that where they appear on sheets of drawings, these symbols must be at least 0.32 cm high."
+       },
+       {
+           "question": "Which of the following is true about the size of figures, letters and signs in chemical or mathematical formulae?",
+           "options": {
+               "A": "They must be as small as possible.",
+               "B": "They should be identical in form irrespective of the document in which they appear.",
+               "C": "They must be too large to be legible.",
+               "D": "They can vary in size and form across different documents."
+           },
+           "correct_answer": "B",
+           "context_answer": "In the context, it is stated that figures, letters and signs that are not typed must be legible and identical in form in the various formulae, irrespective of the document in which they appear."
+       }
    ]
 }

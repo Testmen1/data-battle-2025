@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -8,9 +8,9 @@ const theme = ref(route.params.theme);
 const questionIndex = ref(0);
 const selectedAnswer = ref(null);
 const showAnswer = ref(false);
-
 const questions = ref([]);
-const currentQuestion = ref(null);
+const currentQuestion = computed(() => questions.value[questionIndex.value] || null);
+
 
 const fetchQuestions = async () => {
   try {
@@ -25,9 +25,31 @@ const fetchQuestions = async () => {
   }
 };
 
-const selectAnswer = (answer) => {
+/*
+
+const fetchQuestions = async () => {
+  
+    try {
+    const response = await fetch("http://localhost:8000/questions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: theme.value }),
+    });
+    const data = await response.json();
+    questions.value = data.questions;
+    currentQuestion.value = questions.value[questionIndex.value];
+  } catch (error) {
+    console.error("Erreur lors du chargement des questions :", error);
+    alert("Impossible de charger les questions !");
+    router.push("/qcm");
+  }
+};
+*/
+
+
+const selectAnswer = (answerKey) => {
   if (!showAnswer.value) {
-    selectedAnswer.value = answer;
+    selectedAnswer.value = answerKey;
     showAnswer.value = true;
   }
 };
@@ -35,7 +57,6 @@ const selectAnswer = (answer) => {
 const nextQuestion = () => {
   if (questionIndex.value < questions.value.length - 1) {
     questionIndex.value++;
-    currentQuestion.value = questions.value[questionIndex.value];
     selectedAnswer.value = null;
     showAnswer.value = false;
   } else {
@@ -55,32 +76,32 @@ onMounted(() => {
     <div class="bg-white p-8 rounded-lg shadow-lg w-full flex flex-col text-left">
       <div class="flex">
         <home/>
-        <h1 class="text-sm p-2 mb-4 text-left font-light text-gray-600">
+        <h1 class="text-sm p-2 mb-4 text-left font-light">
           {{ theme }} - Question {{ questionIndex + 1 }} / {{ questions.length }}
         </h1>
       </div>
-      <p class="text-2xl font-semibold mb-6 text-gray-600">{{ currentQuestion?.question }}</p>
+      <p class="text-2xl font-semibold mb-6">{{ currentQuestion?.question }}</p>
 
       <!-- Réponses sous forme de cartes -->
       <div class="grid grid-cols-2 gap-6 flex-1 items-center">
         <UCard 
-          v-for="(answer, index) in currentQuestion?.options" 
-          :key="index" 
+          v-for="(answerText, answerKey) in currentQuestion?.options" 
+          :key="answerKey" 
           class="cursor-pointer p-6 text-lg font-medium transition duration-200 h-64 flex items-center text-left"
           :class="{
-            'bg-blue-500 text-white': selectedAnswer === answer,
-            'bg-red-500 text-white': showAnswer && selectedAnswer === answer && answer !== currentQuestion.correct_answer,
-            'bg-green-500 text-white': showAnswer && answer === currentQuestion.correct_answer,
+            'bg-blue-500 text-white': selectedAnswer === answerKey,
+            'bg-red-500 text-white': showAnswer && selectedAnswer === answerKey && answerKey !== currentQuestion.correct_answer,
+            'bg-green-500 text-white': showAnswer && answerKey === currentQuestion.correct_answer,
             'hover:bg-gray-200': !showAnswer
           }"
-          @click="selectAnswer(answer)">
-          {{ answer }}
+          @click="selectAnswer(answerKey)">
+          <span class="font-bold">{{ answerKey }}.</span> {{ answerText }}
         </UCard>
       </div>
 
       <!-- Affichage de la correction -->
       <div v-if="showAnswer" class="mt-4 p-4 bg-gray-100 rounded-lg">
-        <p class="font-bold text-gray-600">Bonne réponse : {{ currentQuestion.correct_answer }}</p>
+        <p class="font-bold">Bonne réponse : {{ currentQuestion.correct_answer }}</p>
         <p class="text-gray-600">{{ currentQuestion.context_answer }}</p>
       </div>
 
