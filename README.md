@@ -16,7 +16,7 @@ npm run dev
 et dans un autre terminal :
 
 ```bash
-node server/server.js
+node server.js
 ```
 
 ### Backend
