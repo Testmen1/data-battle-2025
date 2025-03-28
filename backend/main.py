@@ -108,12 +108,13 @@ class PromptRequest(BaseModel):
 @app.post("/generate/")
 def generate_response(request: PromptRequest):
 
-    best_results = get_best_results(request.prompt)
 
     pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
     translated = pipe(request.prompt)
 
     new_prompt = translated[0]['translation_text']
+    
+    best_results = get_best_results(new_prompt)
     
     # URL de l'API Ollama
     url = "http://localhost:11434/api/generate"
@@ -121,7 +122,7 @@ def generate_response(request: PromptRequest):
     # Payload pour la requête
     payload = {
         "model": "onizukai",
-        "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Question: {new_prompt}"
+        "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Question: {request.prompt}",
     }
 
     # Headers pour la requête
@@ -151,8 +152,6 @@ def generate_response(request: PromptRequest):
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Request failed: {str(e)}")
 
-# puis utilisez la commande suivante dans le terminal :
-# uvicorn main:app --reload
 
 
 
@@ -183,7 +182,7 @@ def generate_questions(request: PromptRequest):
 
     try:
         # envoyer la requête POST à l'API Ollama
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        response = requests.post(url, headers=headers, data=json.dumps(payload),  stream=False)
         if response.status_code == 200:
             complete_response = ""
             # Process each line in the response
@@ -206,3 +205,6 @@ def generate_questions(request: PromptRequest):
             raise HTTPException(status_code=response.status_code, detail="Error in Ollama API request")
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Request failed: {str(e)}")
+    
+# puis utilisez la commande suivante dans le terminal :
+# uvicorn main:app --reload
