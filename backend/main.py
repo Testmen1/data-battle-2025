@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import requests
 import json
@@ -14,8 +15,19 @@ from transformers import pipeline
 
 pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
 
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  
+    allow_credentials=True,
+    allow_methods=["*"],  # Autorise toutes les méthodes (GET, POST, etc.)
+    allow_headers=["*"],  # Autorise tous les headers
+)
+
 
 app = FastAPI()
+
 
 stop_words = set(stopwords.words('english'))
 
@@ -53,7 +65,9 @@ def flatten_json(json_obj, parent_title='', parent_number=''):
 
 
 
-data_path_file = "/home/leo/Documents/data-battle-2025/mcq-extr/data/clean"
+
+data_path_file = "../extr/data/clean"
+
 json_files = [f'{data_path_file}/json/guidelines_examination_articles.json', f'{data_path_file}/json/epc_rules.json', f'{data_path_file}/json/epc_articles.json']
 h5_files = [f'{data_path_file}/h5/guidelines_examination_articles.h5', f'{data_path_file}/h5/epc_rules.h5', f'{data_path_file}/h5/epc_articles.h5']
 
@@ -105,23 +119,24 @@ def get_best_results(prompt: str):
 class PromptRequest(BaseModel):
     prompt: str
 
-@app.post("/generate/")
-def generate_response(request: PromptRequest):
 
+@app.post("/generate")
+def generate_response(request: PromptRequest):
 
     pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
     translated = pipe(request.prompt)
 
     new_prompt = translated[0]['translation_text']
-    
+   
     best_results = get_best_results(new_prompt)
-    
+  
     # URL de l'API Ollama
     url = "http://localhost:11434/api/generate"
 
     # Payload pour la requête
     payload = {
         "model": "onizukai",
+
         "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Question: {request.prompt}",
     }
 
@@ -152,10 +167,10 @@ def generate_response(request: PromptRequest):
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Request failed: {str(e)}")
 
+# puis utilisez la commande suivante dans le terminal :
+# uvicorn main:app --reload
 
-
-
-@app.post("/questions/")
+@app.post("/questions")
 def generate_questions(request: PromptRequest):
     
     pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
@@ -208,3 +223,4 @@ def generate_questions(request: PromptRequest):
     
 # puis utilisez la commande suivante dans le terminal :
 # uvicorn main:app --reload
+
