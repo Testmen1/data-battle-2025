@@ -81,7 +81,7 @@ onMounted(fetchChats);
     <div class="flex-1 overflow-y-auto">
       <div>
         <div v-for="chat in chatHistory.filter(chat => chat.title.toLowerCase().includes(searchQuery.toLowerCase()))" :key="chat._id">
-          <div class="p-2 hover:bg-gray-200 rounded-lg cursor-pointer flex justify-between items-center" @click="openChat(chat._id)">
+          <div class="p-2 hover:bg-gray-200 text-gray-600 rounded-lg cursor-pointer flex justify-between items-center" @click="openChat(chat._id)">
             <div>
               <p class="font-medium">{{ chat.title }}</p>
               <p class="text-sm text-gray-500" v-if="chat.messages.length > 0">{{ (chat.messages[chat.messages.length - 1].text || "Message non disponible").slice(0,60) }}</p>

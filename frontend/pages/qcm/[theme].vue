@@ -55,11 +55,11 @@ onMounted(() => {
     <div class="bg-white p-8 rounded-lg shadow-lg w-full flex flex-col text-left">
       <div class="flex">
         <home/>
-        <h1 class="text-sm p-2 mb-4 text-left font-light">
+        <h1 class="text-sm p-2 mb-4 text-left font-light text-gray-600">
           {{ theme }} - Question {{ questionIndex + 1 }} / {{ questions.length }}
         </h1>
       </div>
-      <p class="text-2xl font-semibold mb-6">{{ currentQuestion?.question }}</p>
+      <p class="text-2xl font-semibold mb-6 text-gray-600">{{ currentQuestion?.question }}</p>
 
       <!-- Réponses sous forme de cartes -->
       <div class="grid grid-cols-2 gap-6 flex-1 items-center">
@@ -80,7 +80,7 @@ onMounted(() => {
 
       <!-- Affichage de la correction -->
       <div v-if="showAnswer" class="mt-4 p-4 bg-gray-100 rounded-lg">
-        <p class="font-bold">Bonne réponse : {{ currentQuestion.correct_answer }}</p>
+        <p class="font-bold text-gray-600">Bonne réponse : {{ currentQuestion.correct_answer }}</p>
         <p class="text-gray-600">{{ currentQuestion.context_answer }}</p>
       </div>
 

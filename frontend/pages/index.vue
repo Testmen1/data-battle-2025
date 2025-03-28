@@ -54,11 +54,11 @@ const goToQCM = () => {
   <div class="flex items-center justify-center h-screen bg-cover bg-center">
     <div class="bg-white p-6 rounded-lg shadow-lg text-center space-y-6">
       <img src="../assets/img/onizuka1.png" alt="OnizukAI" class="w-96 mx-auto" />
-      <h1 class="text-2xl font-bold">Bienvenue sur OnizukAI</h1>
+      <h1 class="text-2xl text-gray-600 font-bold">Bienvenue sur OnizukAI</h1>
       <p class="text-gray-600">Choisissez une option :</p>
       <div class="space-y-4">
-        <UButton color="blue" class="w-full hover:bg-blue-700 cursor-pointer" :loading="loading" @click="goToLatestChat">💬 Accéder au Chatbot</UButton>
-        <UButton color="green" class="w-full hover:bg-green-700 cursor-pointer" @click="goToQCM">📝 S'entraîner avec un QCM</UButton>
+        <UButton color="blue" class="w-full hover:bg-blue-700 text-gray-400 cursor-pointer" :loading="loading" @click="goToLatestChat">💬 Accéder au Chatbot</UButton>
+        <UButton color="green" class="w-full hover:bg-green-700 text-gray-400 cursor-pointer" @click="goToQCM">📝 S'entraîner avec un QCM</UButton>
       </div>
     </div>
   </div>

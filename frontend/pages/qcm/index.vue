@@ -23,7 +23,7 @@ const startQCM = () => {
 <template>
 <div class="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
    <home />
-    <h1 class="text-2xl font-bold mb-4">Choisissez un thème</h1>
+    <h1 class="text-2xl font-bold mb-4 text-gray-600">Choisissez un thème</h1>
   <USelect v-model="selectedTheme" size="xl" :items="items" class="w-full max-w-md mb-4" placeholder="Sélectionner un thème..."/>
 
   <UInput 
