@@ -10,13 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import sys
 import re
 
-def clean_text(text):
-    """
-    Custom function to clean text by removing special characters, extra spaces, and digits.
-    """
-    text = re.sub(r'[^a-zA-Z\s]', '', text)  
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
+
 
 def flatten_json(json_obj, parent_title='', parent_number=''):
     """
@@ -58,25 +52,14 @@ def generate(filename, out):
 
     data = flatten_json(data)
 
-    data_clean = []
-
-    stop_words = set(stopwords.words('english'))
-    stop_words.add("art")
-
-
-    for line in data:
-        line = line.lower()
-        line = clean_text(line)
-        line = ' '.join([word for word in line.split() if word not in stop_words])  # Remove stopwords
-        data_clean.append(line)
 
     embeddings_list = []
     count = 0
-    for line in data_clean:
+    for line in data:
 
         response = ollama.embeddings(model='nomic-embed-text', prompt=line)
         embeddings_list.append(response.embedding)
-        print(f'{count}/{len(data_clean)}')  
+        print(f'{count}/{len(data)}')  
         count += 1
 
     embeddings_array = np.array(embeddings_list)

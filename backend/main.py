@@ -6,10 +6,18 @@ import ollama
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import h5py
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+import re
+from transformers import pipeline
+
+pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+
 
 app = FastAPI()
 
-data_path_file = "/home/leo/Documents/data-battle-2025/mcq-extr/data"
+stop_words = set(stopwords.words('english'))
 
 def flatten_json(json_obj, parent_title='', parent_number=''):
     """
@@ -23,8 +31,8 @@ def flatten_json(json_obj, parent_title='', parent_number=''):
     items = []
 
     if isinstance(json_obj, dict):
-        article_title = json_obj.get("article_title", "")
-        article_number = json_obj.get("article_number", "")
+        article_title = json_obj.get("article_title","")
+        article_number = json_obj.get("article_number","")
         main_article = json_obj.get("main_article", "")
 
         # Construire le titre complet avec contexte
@@ -44,50 +52,51 @@ def flatten_json(json_obj, parent_title='', parent_number=''):
     return items
 
 
-def load_embedings(file: str):
-    with h5py.File(f'{data_path_file}/clean/h5/{file}', 'r') as h5_file:
-        embeddings = h5_file['embeddings'][:]
-    
-    return embeddings
 
-def load_data(file: list):
-    
-    with open(f'{data_path_file}/clean/json/{file}') as f:
+data_path_file = "/home/leo/Documents/data-battle-2025/mcq-extr/data/clean"
+json_files = [f'{data_path_file}/json/guidelines_examination_articles.json', f'{data_path_file}/json/epc_rules.json', f'{data_path_file}/json/epc_articles.json']
+h5_files = [f'{data_path_file}/h5/guidelines_examination_articles.h5', f'{data_path_file}/h5/epc_rules.h5', f'{data_path_file}/h5/epc_articles.h5']
+
+data_array = []
+for file in json_files:
+    with open(file) as f:
         data = json.load(f)
+        data = flatten_json(data)
+        data_array.append(data)
 
-    data = flatten_json(data)
-
-    return data
-
-def get_best_files(prompt: str):
-    #TODO
-    return None
+embeddings_array = []
+for file in h5_files:
+    with h5py.File(file, 'r') as h5_file:
+        embeddings = h5_file['embeddings'][:]
+        embeddings_array.append(embeddings)
 
 def get_best_results(prompt: str):
-
-    best_files = [["epc_rules.json", "epc_rules.h5"]]
-
-    
-    data_array = load_data(best_files[0][0]) 
-
-    embeddings_array = load_embedings(best_files[0][1])
-
 
     prompt_embedding_response = ollama.embeddings(model='nomic-embed-text', prompt=prompt)
     prompt_embedding = np.array(prompt_embedding_response.embedding).reshape(1, -1)
 
-    # Calculer les similarités entre le prompt et les paragraphes
-    similarities = cosine_similarity(prompt_embedding, embeddings_array)
+    best_results = []
+
+    # Iterate through each file's embeddings and data
+    for embeddings, data in zip(embeddings_array, data_array):
+        # Calculate similarities between the prompt and the paragraphs
+        similarities = cosine_similarity(prompt_embedding, embeddings)
+        print(similarities)
+        # Sort indices by descending similarity
+        
+        best_indices = np.argsort(similarities[0])[::-1]
+
+        file_best_results = [
+            data[i] for i in best_indices[:4] if similarities[0][i] >= 0.6
+        ]
 
 
-    # Trouver les indices des 5 paragraphes les plus similaires
-    best_indices = similarities.argsort()[0][-10:][::-1]
+        # Add the results for this file to the overall results
+        best_results.extend(file_best_results)
 
-    # Afficher les 5 paragraphes les plus similaires
-    best_results = [data_array[i] for i in best_indices]
-
-    # put top 5 paragraphs in a string variable
+    # Combine all filtered paragraphs into a single string
     best_results = "\n".join(best_results)
+    
 
     return best_results
 
@@ -95,18 +104,24 @@ def get_best_results(prompt: str):
 
 class PromptRequest(BaseModel):
     prompt: str
+
 @app.post("/generate/")
 def generate_response(request: PromptRequest):
 
     best_results = get_best_results(request.prompt)
 
+    pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+    translated = pipe(request.prompt)
+
+    new_prompt = translated[0]['translation_text']
+    
     # URL de l'API Ollama
     url = "http://localhost:11434/api/generate"
 
     # Payload pour la requête
     payload = {
-        "model": "mistral",
-        "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Answer the question based on the contect: {request.prompt}"
+        "model": "onizukai",
+        "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Question: {new_prompt}"
     }
 
     # Headers pour la requête
@@ -136,6 +151,58 @@ def generate_response(request: PromptRequest):
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Request failed: {str(e)}")
 
-# Pour exécuter ce serveur, enregistrez le code dans un fichier, par exemple `main.py`,
 # puis utilisez la commande suivante dans le terminal :
 # uvicorn main:app --reload
+
+
+
+@app.post("/questions/")
+def generate_questions(request: PromptRequest):
+    
+    pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+    translated = pipe(request.prompt)
+
+    new_prompt = translated[0]['translation_text']
+
+    best_results = get_best_results(new_prompt)
+
+    # URL de l'API Ollama
+    url = "http://localhost:11434/api/generate"
+
+    # Payload pour la requête
+    payload = {
+        "model": "onizukai-mcq",
+        "prompt": f"Context: {best_results}",
+        "format": "json",
+    }
+
+    # Headers pour la requête
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    try:
+        # envoyer la requête POST à l'API Ollama
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        if response.status_code == 200:
+            complete_response = ""
+            # Process each line in the response
+            for line in response.text.splitlines():
+                if line.strip():
+                    try:
+                        data = json.loads(line)
+                        complete_response += data.get("response", "")
+                    except json.JSONDecodeError:
+                        continue
+            
+            # Try to parse the complete response as a JSON object
+            try:
+                question_data = json.loads(complete_response)
+                return question_data
+            except json.JSONDecodeError:
+                # If parsing fails, return the raw response
+                return {"response": complete_response, "context": best_results}
+        else:
+            raise HTTPException(status_code=response.status_code, detail="Error in Ollama API request")
+    except requests.RequestException as e:
+        raise HTTPException(status_code=500, detail=f"Request failed: {str(e)}")
