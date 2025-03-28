@@ -84,7 +84,7 @@ onMounted(fetchChats);
           <div class="p-2 hover:bg-gray-200 rounded-lg cursor-pointer flex justify-between items-center" @click="openChat(chat._id)">
             <div>
               <p class="font-medium">{{ chat.title }}</p>
-              <p class="text-sm text-gray-500" v-if="chat.messages.length > 0">{{ chat.messages[chat.messages.length - 1].text.slice(0,60)}}</p>
+              <p class="text-sm text-gray-500" v-if="chat.messages.length > 0">{{ (chat.messages[chat.messages.length - 1].text || "Message non disponible").slice(0,60) }}</p>
             </div>
             <UButton icon="i-heroicons-trash" class="text-red-500" size="sm" color="error" variant="ghost" @click="deleteChat(chat._id)"/>
           </div>
