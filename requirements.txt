@@ -1,0 +1,12 @@
+fastapi
+requests
+ollama
+scikit-learn
+h5py
+uvicorn
+nuxt
+nltk
+transformers
+torch
+sentencepiece
+sacremoses
