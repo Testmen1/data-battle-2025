@@ -25,10 +25,6 @@ app.add_middleware(
     allow_headers=["*"],  # Autorise tous les headers
 )
 
-
-app = FastAPI()
-
-
 stop_words = set(stopwords.words('english'))
 
 def flatten_json(json_obj, parent_title='', parent_number=''):
@@ -95,7 +91,6 @@ def get_best_results(prompt: str):
     for embeddings, data in zip(embeddings_array, data_array):
         # Calculate similarities between the prompt and the paragraphs
         similarities = cosine_similarity(prompt_embedding, embeddings)
-        print(similarities)
         # Sort indices by descending similarity
         
         best_indices = np.argsort(similarities[0])[::-1]
