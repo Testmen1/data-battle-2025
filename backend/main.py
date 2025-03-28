@@ -25,6 +25,10 @@ app.add_middleware(
     allow_headers=["*"],  # Autorise tous les headers
 )
 
+
+app = FastAPI()
+
+
 stop_words = set(stopwords.words('english'))
 
 def flatten_json(json_obj, parent_title='', parent_number=''):
@@ -61,7 +65,9 @@ def flatten_json(json_obj, parent_title='', parent_number=''):
 
 
 
-data_path_file = "../mcq-extr/data/clean"
+
+data_path_file = "../extr/data/clean"
+
 json_files = [f'{data_path_file}/json/guidelines_examination_articles.json', f'{data_path_file}/json/epc_rules.json', f'{data_path_file}/json/epc_articles.json']
 h5_files = [f'{data_path_file}/h5/guidelines_examination_articles.h5', f'{data_path_file}/h5/epc_rules.h5', f'{data_path_file}/h5/epc_articles.h5']
 
@@ -113,23 +119,25 @@ def get_best_results(prompt: str):
 class PromptRequest(BaseModel):
     prompt: str
 
+
 @app.post("/generate")
 def generate_response(request: PromptRequest):
-
-    best_results = get_best_results(request.prompt)
 
     pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
     translated = pipe(request.prompt)
 
     new_prompt = translated[0]['translation_text']
-    
+   
+    best_results = get_best_results(new_prompt)
+  
     # URL de l'API Ollama
     url = "http://localhost:11434/api/generate"
 
     # Payload pour la requête
     payload = {
         "model": "onizukai",
-        "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Question: {new_prompt}"
+
+        "prompt": f"Chat history: None\n\nContext: {best_results}\n\n Question: {request.prompt}",
     }
 
     # Headers pour la requête
@@ -162,8 +170,6 @@ def generate_response(request: PromptRequest):
 # puis utilisez la commande suivante dans le terminal :
 # uvicorn main:app --reload
 
-
-
 @app.post("/questions")
 def generate_questions(request: PromptRequest):
     
@@ -191,7 +197,7 @@ def generate_questions(request: PromptRequest):
 
     try:
         # envoyer la requête POST à l'API Ollama
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        response = requests.post(url, headers=headers, data=json.dumps(payload),  stream=False)
         if response.status_code == 200:
             complete_response = ""
             # Process each line in the response
@@ -214,3 +220,7 @@ def generate_questions(request: PromptRequest):
             raise HTTPException(status_code=response.status_code, detail="Error in Ollama API request")
     except requests.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Request failed: {str(e)}")
+    
+# puis utilisez la commande suivante dans le terminal :
+# uvicorn main:app --reload
+
